@@ -8,3 +8,14 @@
 .daw-sessions/
 .daw-journal.jsonl
 # END DAW
+
+# Node / build
+node_modules
+.next
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment secrets
+.env
+.env*.local
+
