@@ -55,11 +55,11 @@ files and **propose the text for you to paste here**. You always confirm it.
 **DAW validates your code against this section** during the CODE phase, via `daw-validate-arch`.
 Leave it empty and that validation has nothing to compare against, so it stops being worth running.
 
-- **Folder structure:** [e.g. `src/features/<feature>/` with `ui`, `domain`, `data`]
-- **Layer separation:** [the UI never talks to the database; always through a service, the backend separates services to fetch database information]
-- **Error handling:** [typed errors; never a silent catch]
-- **Naming:** [files in kebab-case, components in PascalCase]
-- **Dependencies:** [no new libraries without justifying them in the spec and justifying them on a the Readme.md file]
+- **Folder structure:** `src/features/<feature>/` (p. ej. `tasks`, `habits`, `users`) con subcarpetas `ui`, `domain`, `data`. Las rutas de Next.js en `src/app/` solo orquestan (route handlers/páginas finas) y delegan a `src/features/<feature>/`.
+- **Layer separation:** la UI y los route handlers nunca llaman a Prisma directamente; siempre pasan por una capa de servicio (`domain/`) con las reglas de negocio (p. ej. cálculo de XP), que a su vez usa un repositorio (`data/`) para la persistencia con Prisma.
+- **Error handling:** typed errors; never a silent catch.
+- **Naming:** files in kebab-case, components in PascalCase.
+- **Dependencies:** no new libraries without justifying them in the spec and justifying them on a the Readme.md file.
 
 ---
 
