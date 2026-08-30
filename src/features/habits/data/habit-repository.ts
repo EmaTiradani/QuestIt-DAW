@@ -1,4 +1,9 @@
-import type { Difficulty, Habit, HabitCompletion, Prisma } from "@prisma/client";
+import type {
+  Difficulty,
+  Habit,
+  HabitCompletion,
+  Prisma,
+} from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 export interface CreateHabitData {
@@ -28,9 +33,7 @@ export async function findHabitsByUserId(userId: string): Promise<Habit[]> {
   });
 }
 
-export async function createHabitRecord(
-  data: CreateHabitData,
-): Promise<Habit> {
+export async function createHabitRecord(data: CreateHabitData): Promise<Habit> {
   return prisma.habit.create({ data });
 }
 

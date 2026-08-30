@@ -10,7 +10,11 @@ import {
   runTransaction,
   updateTaskRecord,
 } from "../data/task-repository";
-import { TaskForbiddenError, TaskNotFoundError, TaskValidationError } from "./errors";
+import {
+  TaskForbiddenError,
+  TaskNotFoundError,
+  TaskValidationError,
+} from "./errors";
 
 // Not extracted to a shared module: only two consumers exist today
 // (task-service, and habit-service in Block 3). A shared abstraction is
@@ -115,9 +119,7 @@ export async function updateTask(
     ...(input.description !== undefined
       ? { description: input.description }
       : {}),
-    ...(input.difficulty !== undefined
-      ? { difficulty: input.difficulty }
-      : {}),
+    ...(input.difficulty !== undefined ? { difficulty: input.difficulty } : {}),
   });
 }
 

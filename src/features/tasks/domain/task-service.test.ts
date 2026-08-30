@@ -20,13 +20,9 @@ function createFakePrisma() {
 
   interface FakePrismaClient {
     task: {
-      findUnique: (args: {
-        where: { id: string };
-      }) => Promise<TaskRow | null>;
+      findUnique: (args: { where: { id: string } }) => Promise<TaskRow | null>;
       findUniqueOrThrow: (args: { where: { id: string } }) => Promise<TaskRow>;
-      findMany: (args: {
-        where: { userId: string };
-      }) => Promise<TaskRow[]>;
+      findMany: (args: { where: { userId: string } }) => Promise<TaskRow[]>;
       create: (args: {
         data: {
           userId: string;
@@ -229,9 +225,8 @@ describe("task-service", () => {
   });
 
   it("deleteTask hace que la tarea deje de aparecer en listTasksForUser (AC-04)", async () => {
-    const { createTask, deleteTask, listTasksForUser } = await import(
-      "./task-service"
-    );
+    const { createTask, deleteTask, listTasksForUser } =
+      await import("./task-service");
 
     const created = await createTask(USER_A, {
       title: "Borrame",
@@ -324,9 +319,8 @@ describe("task-service", () => {
   });
 
   it("completeTask/updateTask/deleteTask sobre una tarea inexistente lanzan TaskNotFoundError (AC-13)", async () => {
-    const { completeTask, updateTask, deleteTask } = await import(
-      "./task-service"
-    );
+    const { completeTask, updateTask, deleteTask } =
+      await import("./task-service");
     const { TaskNotFoundError } = await import("./errors");
 
     await expect(completeTask(USER_A, "no-existe")).rejects.toThrow(

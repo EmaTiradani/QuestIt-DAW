@@ -10,7 +10,12 @@ export interface TaskListProps {
   onEdit?: (task: Task) => void;
 }
 
-export function TaskList({ tasks, onComplete, onDelete, onEdit }: TaskListProps) {
+export function TaskList({
+  tasks,
+  onComplete,
+  onDelete,
+  onEdit,
+}: TaskListProps) {
   if (tasks.length === 0) {
     return <p>No hay tareas todavia.</p>;
   }

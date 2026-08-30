@@ -63,9 +63,7 @@ export function TaskForm({
         Dificultad
         <select
           value={difficulty}
-          onChange={(event) =>
-            setDifficulty(event.target.value as Difficulty)
-          }
+          onChange={(event) => setDifficulty(event.target.value as Difficulty)}
         >
           {DIFFICULTY_OPTIONS.map((option) => (
             <option key={option} value={option}>

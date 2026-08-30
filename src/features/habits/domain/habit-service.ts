@@ -127,9 +127,7 @@ export async function updateHabit(
 
   return updateHabitRecord(habitId, {
     ...(input.name !== undefined ? { name: input.name } : {}),
-    ...(input.difficulty !== undefined
-      ? { difficulty: input.difficulty }
-      : {}),
+    ...(input.difficulty !== undefined ? { difficulty: input.difficulty } : {}),
   });
 }
 

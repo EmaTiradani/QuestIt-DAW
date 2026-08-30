@@ -44,9 +44,7 @@ function createFakePrisma() {
   interface FakePrismaClient {
     habit: {
       findUnique: (args: { where: { id: string } }) => Promise<Habit | null>;
-      findMany: (args: {
-        where: { userId: string };
-      }) => Promise<Habit[]>;
+      findMany: (args: { where: { userId: string } }) => Promise<Habit[]>;
       create: (args: {
         data: { userId: string; name: string; difficulty: Difficulty };
       }) => Promise<Habit>;
@@ -223,9 +221,8 @@ describe("habit-service", () => {
   });
 
   it("deleteHabit hace que el habito deje de aparecer en listHabitsForUser (AC-10)", async () => {
-    const { createHabit, deleteHabit, listHabitsForUser } = await import(
-      "./habit-service"
-    );
+    const { createHabit, deleteHabit, listHabitsForUser } =
+      await import("./habit-service");
 
     const created = await createHabit(USER_A, {
       name: "Borrame",
@@ -239,9 +236,7 @@ describe("habit-service", () => {
   });
 
   it("registerCompletion crea el registro y suma XP la primera vez del dia (AC-11)", async () => {
-    const { createHabit, registerCompletion } = await import(
-      "./habit-service"
-    );
+    const { createHabit, registerCompletion } = await import("./habit-service");
 
     const created = await createHabit(USER_A, {
       name: "Habito dificil",
@@ -256,9 +251,7 @@ describe("habit-service", () => {
   });
 
   it("registerCompletion repetido el mismo dia no crea otro registro ni suma XP (AC-12)", async () => {
-    const { createHabit, registerCompletion } = await import(
-      "./habit-service"
-    );
+    const { createHabit, registerCompletion } = await import("./habit-service");
 
     const created = await createHabit(USER_A, {
       name: "Habito medio",
@@ -284,9 +277,9 @@ describe("habit-service", () => {
       difficulty: "EASY",
     });
 
-    await expect(
-      registerCompletion(USER_A, othersHabit.id),
-    ).rejects.toThrow(HabitForbiddenError);
+    await expect(registerCompletion(USER_A, othersHabit.id)).rejects.toThrow(
+      HabitForbiddenError,
+    );
     await expect(
       updateHabit(USER_A, othersHabit.id, { name: "Hackeado" }),
     ).rejects.toThrow(HabitForbiddenError);
@@ -302,9 +295,8 @@ describe("habit-service", () => {
   });
 
   it("registerCompletion/updateHabit/deleteHabit sobre un habito inexistente lanzan HabitNotFoundError (AC-13)", async () => {
-    const { registerCompletion, updateHabit, deleteHabit } = await import(
-      "./habit-service"
-    );
+    const { registerCompletion, updateHabit, deleteHabit } =
+      await import("./habit-service");
     const { HabitNotFoundError } = await import("./errors");
 
     await expect(registerCompletion(USER_A, "no-existe")).rejects.toThrow(
@@ -319,9 +311,7 @@ describe("habit-service", () => {
   });
 
   it("listHabitsForUser solo devuelve habitos del usuario dado", async () => {
-    const { createHabit, listHabitsForUser } = await import(
-      "./habit-service"
-    );
+    const { createHabit, listHabitsForUser } = await import("./habit-service");
 
     await createHabit(USER_A, { name: "De A", difficulty: "EASY" });
     fakePrisma.seedHabit({ userId: USER_B, name: "De B", difficulty: "EASY" });

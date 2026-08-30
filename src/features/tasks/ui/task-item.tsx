@@ -9,7 +9,12 @@ export interface TaskItemProps {
   onEdit?: (task: Task) => void;
 }
 
-export function TaskItem({ task, onComplete, onDelete, onEdit }: TaskItemProps) {
+export function TaskItem({
+  task,
+  onComplete,
+  onDelete,
+  onEdit,
+}: TaskItemProps) {
   const isCompleted = task.status === "COMPLETED";
 
   return (
