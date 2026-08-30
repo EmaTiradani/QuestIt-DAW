@@ -7,14 +7,15 @@ import {
 } from "@/features/tasks/domain/errors";
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export async function POST(_request: NextRequest, { params }: RouteParams) {
   const userId = await getCurrentUserId();
+  const { id } = await params;
 
   try {
-    const task = await completeTask(userId, params.id);
+    const task = await completeTask(userId, id);
     return NextResponse.json(task, { status: 200 });
   } catch (error) {
     if (

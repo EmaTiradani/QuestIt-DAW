@@ -11,15 +11,16 @@ import {
 } from "@/features/habits/domain/errors";
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
   const userId = await getCurrentUserId();
+  const { id } = await params;
   const body = await request.json();
 
   try {
-    const habit = await updateHabit(userId, params.id, {
+    const habit = await updateHabit(userId, id, {
       name: body.name,
       difficulty: body.difficulty,
     });
@@ -43,9 +44,10 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
 export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   const userId = await getCurrentUserId();
+  const { id } = await params;
 
   try {
-    await deleteHabit(userId, params.id);
+    await deleteHabit(userId, id);
     return new NextResponse(null, { status: 204 });
   } catch (error) {
     if (

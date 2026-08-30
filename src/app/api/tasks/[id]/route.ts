@@ -8,15 +8,16 @@ import {
 } from "@/features/tasks/domain/errors";
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
   const userId = await getCurrentUserId();
+  const { id } = await params;
   const body = await request.json();
 
   try {
-    const task = await updateTask(userId, params.id, {
+    const task = await updateTask(userId, id, {
       title: body.title,
       description: body.description,
       difficulty: body.difficulty,
@@ -41,9 +42,10 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
 export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   const userId = await getCurrentUserId();
+  const { id } = await params;
 
   try {
-    await deleteTask(userId, params.id);
+    await deleteTask(userId, id);
     return new NextResponse(null, { status: 204 });
   } catch (error) {
     if (

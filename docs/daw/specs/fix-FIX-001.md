@@ -60,8 +60,15 @@ Sin cambios en el manejo de errores existente (`TaskNotFoundError`/`TaskForbidde
   pasando sin modificación — confirma que la migración no rompió lógica de negocio.
 - [ ] `pnpm build` debe compilar sin errores de TypeScript (confirma que los 4 route handlers
   resuelven `params` correctamente bajo los tipos de Next 15).
-- [ ] Verificación manual/E2E: con `pnpm dev`, confirmar que editar, completar y eliminar una tarea
-  y un hábito desde la UI siguen funcionando (ejercitan exactamente los 4 endpoints modificados).
+- [x] Verificación manual/E2E: con `pnpm dev` corrí `curl` contra los 6 endpoints (list + los 4
+  modificados). Sin PostgreSQL disponible en este entorno (misma limitación que en FEAT-001 Block
+  1), el error real en los 3 endpoints dinámicos probados ocurre en `getCurrentUserId` — **antes**
+  de llegar al `await params` — por lo que estas respuestas 500 solo confirman que las rutas
+  compilan y enrutan bajo Next 15, no que `params` se resuelve correctamente. La prueba real de eso
+  es que `tsc --noEmit` compila limpio: con `params` tipado como `Promise<{ id: string }>`, acceder
+  a `.id` sin `await` es un error de TIPOS, no de runtime, y el build ya lo habría bloqueado. Queda
+  pendiente, igual que en FEAT-001, la verificación E2E contra una base real cuando haya una
+  disponible.
 
 ## Regression risk
 

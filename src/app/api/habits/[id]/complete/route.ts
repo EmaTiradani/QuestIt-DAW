@@ -7,14 +7,15 @@ import {
 } from "@/features/habits/domain/errors";
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export async function POST(_request: NextRequest, { params }: RouteParams) {
   const userId = await getCurrentUserId();
+  const { id } = await params;
 
   try {
-    const completion = await registerCompletion(userId, params.id);
+    const completion = await registerCompletion(userId, id);
     return NextResponse.json(
       {
         habitId: completion.habitId,
