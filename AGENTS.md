@@ -43,10 +43,13 @@ files and **propose the text for you to paste here**. You always confirm it.
 | ------------------ | -------------------------- |
 | Language           | [TypeScript]               |
 | Runtime            | [Node 18]                  |
-| Framework          | [Next.js 14 (Node 18 LTS)] |
+| Framework          | [Next.js 15 (Node 18 LTS)] |
 | Database           | [PostgreSQL + Prisma]      |
 | Linter / formatter | [Prettier]                 |
 | Package manager    | [pnpm]                     |
+| Install            | pnpm install                |
+| Test               | pnpm test                   |
+| Typecheck          | npx tsc --noEmit             |
 
 ---
 
