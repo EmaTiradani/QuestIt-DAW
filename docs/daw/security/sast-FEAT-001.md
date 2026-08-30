@@ -3,8 +3,8 @@
 | Field | Value |
 |-------|-------|
 | Ticket | FEAT-001 |
-| Date | 2026-08-30 |
-| Result | **BLOCKED** |
+| Date | 2026-08-30 (bloqueado) / 2026-08-30 (resuelto tras FIX-001) |
+| Result | **PASSED** (ver "Resolución" al final) |
 
 ## Resumen
 
@@ -102,7 +102,14 @@ el proyecto de Next.js 14 a 15.x (>=15.5.21), incluyendo:
   explotables de inmediato y la migración deja de ser diferible — cualquier ticket que toque esas
   áreas debe re-evaluar este bloqueo antes de avanzar.
 
+## Resolución
+
+**FIX-001** (`docs/daw/specs/fix-FIX-001.md`) migró `next` a `15.5.24`, resolviendo las 11 CVEs
+High. Su PR (#1) fue mergeado en `feat/FEAT-001-tareas-habitos`. Al retomar FEAT-001, se re-corrió
+`pnpm audit` sobre el código ya mergeado: **0 vulnerabilidades**. `pnpm test` (21/21) y el resto de
+checks de esta sección siguen limpios sin cambios.
+
 ## Estado de gates
 
 - `gates.tests` = `true` (21/21 tests, suite completa)
-- `gates.sast` = **`false`** (BLOCKED)
+- `gates.sast` = **`true`** (resuelto vía FIX-001, 0 vulnerabilidades)
